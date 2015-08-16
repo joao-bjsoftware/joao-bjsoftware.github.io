@@ -36,3 +36,31 @@ In the first, you must think if you really need to use it. You should consider a
 
 ### Cool, I need it! Let's do this!
 
+For learning purposes, let's imagine the following fictional scenario. Please, feel free to extends at your needs.
+
+1 - We need to log user file upload statistics (For disk quota);
+
+2 - We need to log user file download statistics (For bandwidth quota);
+
+So Let's do this:
+
+First of all you must add a setting in settings.py file that will be our MEDIA_PRIVATE_ROOT. All private files will be placed here.
+
+```python
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+MEDIA_PRIVATE_ROOT = os.path.join(BASE_DIR, 'media_private')
+
+```
+We will also need a software requirement:
+
+Many people knows that Django Server is not the usual way to serve media and static files. Many Web Servers handle better with in this functionality, so, we will need django-filetransfers package that forces your current Web Server to handle downloads instead your Django application
+
+Basically, using django-filetransfers with the x-sendfile Web Server module a HTTP header will be set to ensure that NGINX or Apache will handle download instead Django Server.
+
+
+```shell
+
+pip install django-filetransfers
+
+```
