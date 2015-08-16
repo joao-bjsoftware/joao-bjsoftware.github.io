@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Creating a Custom CDN with Python and Django</title>
+    <meta name="description" content="" />
+    <link href="//fonts.googleapis.com/css?family=Noto+Sans:300,400,700" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic" rel="stylesheet" type="text/css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="//joao-bjsoftware.github.io/themes/Saga/assets/css/style.css?v=1.0.0" rel="stylesheet" type="text/css">
+    <link href="//joao-bjsoftware.github.io/themes/Saga/assets/css/animate.min.css?v=1.0.0" rel="stylesheet" type="text/css">
+    <link href="//joao-bjsoftware.github.io/themes/Saga/favicon.ico" rel="shortcut icon">
+    <link rel="canonical" href="https://joao-bjsoftware.github.io/2015/08/15/Creating-a-Custom-CDN-with-Python-and-Django.html" />
+    
+    <meta property="og:site_name" content="João Carvalho&#x27;s bit brushing" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Creating a Custom CDN with Python and Django" />
+    <meta property="og:description" content="Still in progress..." />
+    <meta property="og:url" content="https://joao-bjsoftware.github.io/2015/08/15/Creating-a-Custom-CDN-with-Python-and-Django.html" />
+    <meta property="article:published_time" content="2015-08-15T03:00:00.000Z" />
+    <meta property="article:modified_time" content="2015-08-16T01:57:23.269Z" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Creating a Custom CDN with Python and Django" />
+    <meta name="twitter:description" content="Still in progress..." />
+    <meta name="twitter:url" content="https://joao-bjsoftware.github.io/2015/08/15/Creating-a-Custom-CDN-with-Python-and-Django.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "João Carvalho&#x27;s bit brushing",
+    "author": {
+        "@type": "Person",
+        "name": "João Dias de Carvalho Neto",
+        "image": "https://avatars.githubusercontent.com/u/1715039?v=3",
+        "url": "undefined/author/undefined",
+        "sameAs": "http://jcarvalho.me"
+    },
+    "headline": "Creating a Custom CDN with Python and Django",
+    "url": "https://joao-bjsoftware.github.io/2015/08/15/Creating-a-Custom-CDN-with-Python-and-Django.html",
+    "datePublished": "2015-08-15T03:00:00.000Z",
+    "dateModified": "2015-08-16T01:57:23.269Z",
+    "description": "Still in progress..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost ?" />
+    <link rel="alternate" type="application/rss+xml" title="João Carvalho&#x27;s bit brushing" href="https://joao-bjsoftware.github.io/rss" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+</head>
+<body class="post-template">
+    <header id="header" class="animated fadeIn">
+    <div class="header-background">
+    <section class="blog-content">
+        <a id="site-url" class="blog-title" href="https://joao-bjsoftware.github.io">João Carvalho&#x27;s bit brushing</a>
+        <span class="blog-description">Bits are made winding through my head</span>
+        <nav class="links fadeIn animated">
+            <ul>
+                <!-- <li class="rss"><a title="RSS Feed" href="/rss/"><i class="fa fa-fw fa-rss-square"></i></a></li> -->
+        
+            </ul>
+        </nav>
+    </section>
+    <section class="header-content">
+        <h1 class="post-title animated fadeInUp">Creating a Custom CDN with Python and Django</h1>
+        <span class="post-data"><span class="date animated fadeInUp"><i class="fa fa-clock-o"></i> <time class="timesince date" data-timesince="1439607600" datetime="2015-08-15T00:00" title="15 August 2015">2015-08-15 00:00:00<ago class="ago"></time></span>
+            
+            <span class="author animated fadeInUp"><i class="fa fa-user"></i> <a href="">João Dias de Carvalho Neto</a></span></span>
+    </section>
+    </div>
+</header>
+<main id="main" class="content">
+    <article itemtype="http://schema.org/BlogPosting" class="animated fadeIn content post post">
+        <section class="post-content">
+            <div class="paragraph">
+<p>Still in progress</p>
+</div>
+        </section>
+
+    
+        <section class="post-comments">
+          <div id="disqus_thread"></div>
+          <script type="text/javascript">
+          var disqus_shortname = 'jdcarvalhoneto'; // required: replace example with your forum shortname
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </section>
+    
+    </article>
+
+</main>
+    <footer class="animated fadeIn" id="footer">
+        <section class="colophon">
+          <section class="copyright">Copyright &copy; <span itemprop="copyrightHolder">João Carvalho&#x27;s bit brushing</span>. <span rel="license">All Rights Reserved</span>.</section>
+          <section class="poweredby">Published with <a class="icon-ghost" href="http://hubpress.io">HubPress</a></section>
+        </section>
+        <section class="bottom">
+          <section class="attribution">
+            <a href="http://github.com/Reedyn/Saga">Built with <i class="fa fa-heart"></i> and Free and Open-Source Software</a>.
+          </section>
+        </section>
+    </footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js?v="></script> 
+      <script type="text/javascript">
+        jQuery( document ).ready(function() {
+          // change date with ago
+          jQuery('ago.ago').each(function(){
+            var element = jQuery(this).parent();
+            element.html( moment(element.text()).fromNow());
+          });
+        });
+
+        hljs.initHighlightingOnLoad();      
+      </script>
+    <script src="//joao-bjsoftware.github.io/themes/Saga/assets/js/scripts.js?v=1.0.0"></script>
+    
+</body>
+</html>
