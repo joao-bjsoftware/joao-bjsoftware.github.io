@@ -1,6 +1,6 @@
 = Creating a Custom CDN with Python and Django
 
-image::<cdn.png>[Creating a Custom CDN With Python and Django]
+image::cdn.png[Creating a Custom CDN With Python and Django]
 
 ### What is CDN and why should I serve static files this way?
 
