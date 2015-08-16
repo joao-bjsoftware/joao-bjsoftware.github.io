@@ -275,7 +275,7 @@ def cdn_download_file(request, id):
 
 With Powerful FileSystemStorage class, implement a CDN is just like implement any Python code, powerful and simple. Do things like restrict access, store files in different storage optimized servers and use load balancing algorithms on save or request files are easy to do. I really hope this article be useful to you, if you will have any doubt or consideration, do not hesitate in talk about it.
 
-(1) – django-file-transfers application is well documented [here] (https://www.allbuttonspressed.com/projects/django-filetransfers)
+(1) – django-file-transfers application is well documented on https://www.allbuttonspressed.com/projects/django-filetransfers
 
 (2) – X-sendfile module must be installed and configured with your web server. The same module is called X-accel on NGINX
 
