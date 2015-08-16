@@ -31,7 +31,7 @@ In the first, you must think if you really need to use it. You should consider a
 
 - You must restrict those file's access with some particular business rule, for example when the user access expires.
 
-- You have a large number of files and need to allocate on optimized storage servers instead your application server
+- You have a large number of files and need to allocate they on optimized storage servers instead your application's server one.
 
 
 ### Cool, I need it! Let's do this!
