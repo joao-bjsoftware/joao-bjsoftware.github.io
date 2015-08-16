@@ -1,3 +1,7 @@
 = Creating a Custom CDN with Python and Django
 
-Still in progress
+'''
+
+pip install Django
+
+'''
