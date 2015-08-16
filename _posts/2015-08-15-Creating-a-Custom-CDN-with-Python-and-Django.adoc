@@ -34,3 +34,5 @@ In the first, you must think if you really need to use it. You should consider a
 - You have a large number of files and need to allocate on optimized storage servers instead your application server
 
 
+### Cool, I need it! Let's do this!
+
