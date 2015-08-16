@@ -59,8 +59,60 @@ Many people knows that Django Server is not the usual way to serve media and sta
 Basically, using django-filetransfers with the x-sendfile Web Server module a HTTP header will be set to ensure that NGINX or Apache will handle download instead Django Server.
 
 
-```shell
+```bash
 
 pip install django-filetransfers
+
+```
+Now, we must create two Model Classes to handle with disk usage and bandwidth quota.
+
+```python
+# - coding: utf-8 -
+from django.db import models
+
+class DiskUsage(models.Model):
+    u"""
+    
+    This class will manage disk usage to 
+    check storage quota 
+
+    """
+    file_path = models.FilePathField(max_length=255,
+                                     db_column='file_path',
+                                     null=False, blank=False,
+                                     unique=True)
+
+    size = models.DecimalField(db_column='size',
+                               null=False, blank=False,
+                               max_digits=18,
+                               decimal_places=2)
+
+    class Meta:
+        db_table = 'cdn_disk'
+
+
+class BandwidthUsage(models.Model):
+    u"""
+
+    This class will manage file downloads to 
+    check bandwidth quota
+
+    """
+
+    log = models.ForeignKey(DiskUsage, null=False, blank=False,
+                            db_column='log_id')
+
+    date = models.DateTimeField(db_column='date', auto_now=True, 
+blank=False,
+                                null=False)
+
+    size = models.DecimalField(db_column='size',
+                               null=False, blank=False,
+                               max_digits=18,
+                               decimal_places=2,
+                               default=0)
+
+    class Meta:
+        db_table = 'cdn_down'
 
 ```
