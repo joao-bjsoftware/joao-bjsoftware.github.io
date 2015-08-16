@@ -1,3 +1,32 @@
 = Creating a Custom CDN with Python and Django
 
-# Whe
+#### What is CDN and why should I serve static files this way?
+
+Hello everyone!
+
+I am João Carvalho. How are you? This is my first article in English language, so please, be patient with this Brazilian guy and feel free to report any misunderstood in comments.
+
+After a long time without post anything (I was really very busy with happy coding) I am here to talk about serving files through a CDN (Content Delivery Network) structure with Django Framework.
+
+A CDN is a structured network to serve files in various storage servers. The main advantages to use it is:
+
+- To control the user's storage quota;
+
+- To control the user's bandwidth quota;
+
+- To avoid the users access files directly;
+
+- Allow to revoke access when some signal is triggered;
+
+
+First of all, you must think about if you really needs to serve files by this way:
+
+You should consider to use when:
+
+- Your files only can be downloaded with a general link to it
+
+- Your files cannot be accessed by it's direct file URL
+
+- You need to log file's size and download count for bandwidth consumption and disk space usage
+
+- You must restrict those file's access with some particular business rule, for example when the user access expires.
