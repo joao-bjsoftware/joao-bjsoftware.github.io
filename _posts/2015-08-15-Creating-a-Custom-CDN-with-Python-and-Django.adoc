@@ -279,5 +279,3 @@ With Powerful FileSystemStorage class, implement a CDN is just like implement an
 (1) – django-file-transfers application is well documented on https://www.allbuttonspressed.com/projects/django-filetransfers
 
 (2) – X-sendfile module must be installed and configured with your web server. The same module is called X-accel on NGINX
-
-(3) – FileSystemStorage is a Django Framework class that handle with: (Guess it?) File system storage.
