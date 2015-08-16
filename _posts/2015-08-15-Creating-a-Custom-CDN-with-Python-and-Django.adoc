@@ -21,9 +21,7 @@ A CDN is a structured network to serve files in various storage servers. The mai
 - Allow to revoke access when some signal is triggered;
 
 
-First of all, you must think about if you really needs to serve files by this way:
-
-You should consider to use when:
+In the first, you must think if you really need to use it. You should consider a to use a CDN to server files when:
 
 - Your files only can be downloaded with a general link to it
 
@@ -32,3 +30,7 @@ You should consider to use when:
 - You need to log file's size and download count for bandwidth consumption and disk space usage
 
 - You must restrict those file's access with some particular business rule, for example when the user access expires.
+
+- You have a large number of files and need to allocate on optimized storage servers instead your application server
+
+
