@@ -1,10 +1,1 @@
-{
-  "meta": {
-    "username": "joao-bjsoftware",
-    "repositoryName": "joao-bjsoftware.github.io",
-    "branch": "master"
-  },
-  "theme": {
-    "name": "Casper"
-  }
-}
+{"meta":{"username":"joao-bjsoftware","repositoryName":"joao-bjsoftware.github.io","branch":"master"},"site":{"title":"Byte brushing with João Carvalho","postsPerPage":"5","url":"https://joao-bjsoftware.github.io"},"socialnetwork":{"email":"joao.carvalho@maestrus.com","twitter":"@jcarvalho_real"},"theme":{"name":"Casper","url":"//joao-bjsoftware.github.io/themes/Casper"}}
