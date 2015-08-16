@@ -116,3 +116,102 @@ blank=False,
         db_table = 'cdn_down'
 
 ```
+
+After do it, we'll create the engine of CDN process. Django Framework uses an intermediary class to work with file System. Let's extends *FileSystemStorage* class.
+
+```python
+class PrivateStorage(FileSystemStorage):
+
+    def __init__(self, location=None):
+        if not location:
+            raise ImproperlyConfigured(u"File System location not 
+defined")
+        FileSystemStorage.__init__(self, location=location)
+        #Here you can adjust file permissions for you new files
+        self.file_permissions_mode = 0644
+
+    def get_available_name(self, name):
+        u"""
+
+        This method will check if a file exists in OS 
+        then delete it for "update"
+
+        You can do another behavior here if you 
+        don't like this one.
+        
+        Create a new name then return is a 
+        good example for do it
+
+        """
+        if self.exists(name):
+            self.delete(name)
+        return name
+
+    def open(self, name, mode='r'):
+        u"""
+        
+        This method is called every time that someone
+        requests to download or use a file
+        
+        """
+        try:
+            file = DiskUsage.objects.get(file_path=self.path(name))
+        except:
+            #If a file disk usage does not 
+            #exists there's no file to download
+            raise Http404()
+        band = BandwidthUsage()
+        band.log_id = file.id
+        #Date is for query bandwidth per month for example
+        band.date = datetime.now()
+        band.size = self.size(name)
+        band.save()
+        return FileSystemStorage.open(self, name, mode)
+
+    def _save(self, name, content):
+        u"""
+        
+        Triggered when someone saves a file to your disk.
+        Our intent here is compute the size for log disk usage
+        
+        """
+        path = self.path(name)
+        #Our field limitation
+        if len(path) > 255:
+            raise Exception(u"File path is too big")
+        
+        #Try to catch an existing file, if something goes
+        #wrong, a new one instance is created
+        #REMEMBER: According our models file_path is UNIQUE
+        try:
+            file = DiskUsage.objects.get(file_path=path)
+        except:
+            file = DiskUsage()
+
+        file.file_path = self.path(name)
+        save_name = FileSystemStorage._save(self, name, content)
+        file.size = self.size(name)
+
+        file.save()
+        return save_name
+
+    def exists(self, name):
+        u"""
+        
+        I extend this method only to demonstrate you
+        that you can add custom behaviors here
+        
+        """
+        fExist = os.path.exists(self.path(name))
+        return fExist
+
+    def delete(self, name):
+        u"""
+        
+        I extend this method only to demonstrate you
+        that you can add custom behaviors here
+        
+        """
+        FileSystemStorage.delete(self, name)
+
+```
