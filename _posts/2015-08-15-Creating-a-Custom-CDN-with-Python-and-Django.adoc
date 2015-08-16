@@ -18,7 +18,7 @@ A CDN is a structured network to serve files in various storage servers. The mai
 
 - To avoid the users access files directly;
 
-- Allow to revoke access when some signal is triggered;
+- Grant and revoke access when some signal is triggered;
 
 
 In the first, you must think if you really need to use it. You should consider a to use a CDN to server files when:
