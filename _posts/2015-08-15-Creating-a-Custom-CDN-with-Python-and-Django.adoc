@@ -1,6 +1,8 @@
 = Creating a Custom CDN with Python and Django
 
-#### What is CDN and why should I serve static files this way?
+image::cdn.png[Creating a Custom CDN With Python and Django]
+
+### What is CDN and why should I serve static files this way?
 
 Hello everyone!
 
@@ -16,12 +18,10 @@ A CDN is a structured network to serve files in various storage servers. The mai
 
 - To avoid the users access files directly;
 
-- Allow to revoke access when some signal is triggered;
+- Grant and revoke access when some signal is triggered;
 
 
-First of all, you must think about if you really needs to serve files by this way:
-
-You should consider to use when:
+In the first, you must think if you really need to use it. You should consider a to use a CDN to server files when:
 
 - Your files only can be downloaded with a general link to it
 
@@ -30,3 +30,252 @@ You should consider to use when:
 - You need to log file's size and download count for bandwidth consumption and disk space usage
 
 - You must restrict those file's access with some particular business rule, for example when the user access expires.
+
+- You have a large number of files and need to allocate they on optimized storage servers instead your application's server one.
+
+
+### Cool, I need it! Let's do this!
+
+For learning purposes, let's imagine the following fictional scenario. Please, feel free to extends at your needs.
+
+1 - We need to log user file upload statistics (For disk quota);
+
+2 - We need to log user file download statistics (For bandwidth quota);
+
+So Let's do this:
+
+First of all you must add a setting in settings.py file that will be our MEDIA_PRIVATE_ROOT. All private files will be placed here.
+
+```python
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+MEDIA_PRIVATE_ROOT = os.path.join(BASE_DIR, 'media_private')
+
+```
+We will also need a software requirement:
+
+Many people knows that Django Server is not the usual way to serve media and static files. Many Web Servers handle better with in this functionality, so, we will need django-filetransfers package that forces your current Web Server to handle downloads instead your Django application
+
+Basically, using django-filetransfers with the x-sendfile Web Server module a HTTP header will be set to ensure that NGINX or Apache will handle download instead Django Server.
+
+
+```bash
+
+pip install django-filetransfers
+
+```
+Now, we must create two Model Classes to handle with disk usage and bandwidth quota.
+
+```python
+# - coding: utf-8 -
+from django.db import models
+
+class DiskUsage(models.Model):
+    u"""
+    
+    This class will manage disk usage to 
+    check storage quota 
+
+    """
+    file_path = models.FilePathField(max_length=255,
+                                     db_column='file_path',
+                                     null=False, blank=False,
+                                     unique=True)
+
+    size = models.DecimalField(db_column='size',
+                               null=False, blank=False,
+                               max_digits=18,
+                               decimal_places=2)
+
+    class Meta:
+        db_table = 'cdn_disk'
+
+
+class BandwidthUsage(models.Model):
+    u"""
+
+    This class will manage file downloads to 
+    check bandwidth quota
+
+    """
+
+    log = models.ForeignKey(DiskUsage, null=False, blank=False,
+                            db_column='log_id')
+
+    date = models.DateTimeField(db_column='date', auto_now=True, 
+blank=False,
+                                null=False)
+
+    size = models.DecimalField(db_column='size',
+                               null=False, blank=False,
+                               max_digits=18,
+                               decimal_places=2,
+                               default=0)
+
+    class Meta:
+        db_table = 'cdn_down'
+
+```
+
+After do it, we'll create the engine of CDN process. Django Framework uses an intermediary class to work with file System. Let's extends *FileSystemStorage* class.
+
+```python
+class PrivateStorage(FileSystemStorage):
+
+    def __init__(self, location=None):
+        if not location:
+            raise ImproperlyConfigured(u"File System location not 
+defined")
+        FileSystemStorage.__init__(self, location=location)
+        #Here you can adjust file permissions for you new files
+        self.file_permissions_mode = 0644
+
+    def get_available_name(self, name):
+        u"""
+
+        This method will check if a file exists in OS 
+        then delete it for "update"
+
+        You can do another behavior here if you 
+        don't like this one.
+        
+        Create a new name then return is a 
+        good example for do it
+
+        """
+        if self.exists(name):
+            self.delete(name)
+        return name
+
+    def open(self, name, mode='r'):
+        u"""
+        
+        This method is called every time that someone
+        requests to download or use a file
+        
+        """
+        try:
+            file = DiskUsage.objects.get(file_path=self.path(name))
+        except:
+            #If a file disk usage does not 
+            #exists there's no file to download
+            raise Http404()
+        band = BandwidthUsage()
+        band.log_id = file.id
+        #Date is for query bandwidth per month for example
+        band.date = datetime.now()
+        band.size = self.size(name)
+        band.save()
+        return FileSystemStorage.open(self, name, mode)
+
+    def _save(self, name, content):
+        u"""
+        
+        Triggered when someone saves a file to your disk.
+        Our intent here is compute the size for log disk usage
+        
+        """
+        path = self.path(name)
+        #Our field limitation
+        if len(path) > 255:
+            raise Exception(u"File path is too big")
+        
+        #Try to catch an existing file, if something goes
+        #wrong, a new one instance is created
+        #REMEMBER: According our models file_path is UNIQUE
+        try:
+            file = DiskUsage.objects.get(file_path=path)
+        except:
+            file = DiskUsage()
+
+        file.file_path = self.path(name)
+        save_name = FileSystemStorage._save(self, name, content)
+        file.size = self.size(name)
+
+        file.save()
+        return save_name
+
+    def exists(self, name):
+        u"""
+        
+        I extend this method only to demonstrate you
+        that you can add custom behaviors here
+        
+        """
+        fExist = os.path.exists(self.path(name))
+        return fExist
+
+    def delete(self, name):
+        u"""
+        
+        I extend this method only to demonstrate you
+        that you can add custom behaviors here
+        
+        """
+        FileSystemStorage.delete(self, name)
+
+```
+
+Now, to our scenario works properly, we must do two things:
+
+1) Set all desired Model fields to be served in CDN with our custom File System Storage like bellow:
+ 
+
+```python
+fss = PrivateStorage(MEDIA_PRIVATE_ROOT)
+
+def _get_upload_to_files(instance, filename):
+    return 'files/{date}/{file}'.format(
+        db=instance._state.db, date=instance.date, file=filename)
+
+class ExampleFileModel(models.Model):
+    file = models.FileField(verbose_name="File to Download",
+                            upload_to=_get_upload_to_files,
+                            null=True, 
+                            blank=True,
+                            storage=fss,
+                            max_length=255,
+                            db_column='file')
+```
+
+2) Create a view to handle "ExampleFileModel" private download like bellow:
+ 
+
+```python
+# - coding: utf-8 -
+from django.contrib.auth.decorators import login_required
+from django.http.response import Http404, HttpResponse
+from django.shortcuts import render
+from filetransfers.api import serve_file
+from app.settings import MEDIA_PRIVATE_ROOT
+import os
+
+@login_required
+def cdn_download_file(request, id):
+    u"""
+    This method will handle all private downloads
+
+    """
+    try:
+        obj = ExampleFileModel(pk=id)
+    except:
+        raise Http404()
+
+    #We can set here some behavior to check 
+    #if user can or cannot download this object
+
+    try:
+        return serve_file(request, obj.file)
+    except:
+        raise Http404()
+```
+ 
+
+### Considerations
+
+With Powerful FileSystemStorage class, implement a CDN is just like implement any Python code, powerful and simple. Do things like restrict access, store files in different storage optimized servers and use load balancing algorithms on save or request files are easy to do. I really hope this article be useful to you, if you will have any doubt or consideration, please do it.
+
+
+(1) – django-file-transfers application is well documented on https://www.allbuttonspressed.com/projects/django-filetransfers
+
+(2) – X-sendfile module must be installed and configured with your web server. The same module is called X-accel on NGINX
