@@ -1,5 +1,7 @@
 = Creating a Custom CDN with Python and Django
 
+:keywords: cdn, python, django, João Carvalho, Maestrus, bit brushing
+
 image::cdn.png[Creating a Custom CDN With Python and Django]
 
 ### What is CDN and why should I serve static files this way?
