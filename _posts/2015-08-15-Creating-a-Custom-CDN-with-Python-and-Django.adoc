@@ -12,7 +12,7 @@ I am João Carvalho. How are you? This is my first article in English language, 
 
 After a long time without post anything (I was really very busy with happy coding) I am here to talk about serving files through a CDN (Content Delivery Network) structure with Django Framework.
 
-A CDN is a structured network to serve files in various storage servers. The main advantages to use it is:
+A CDN is a structured network to serve files in various storage servers. The main advantages to using it are:
 
 - To control the user's storage quota;
 
@@ -27,7 +27,7 @@ In the first, you must think if you really need to use it. You should consider a
 
 - Your files only can be downloaded with a general link to it
 
-- Your files cannot be accessed by it's direct file URL
+- Your files cannot be accessed by its direct file URL
 
 - You need to log file's size and download count for bandwidth consumption and disk space usage
 
