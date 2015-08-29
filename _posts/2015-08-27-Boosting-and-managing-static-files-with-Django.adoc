@@ -1,0 +1,3 @@
+= Boosting and managing static files with Django
+
+
