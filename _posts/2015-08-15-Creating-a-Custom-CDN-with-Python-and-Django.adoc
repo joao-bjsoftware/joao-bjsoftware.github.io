@@ -14,6 +14,8 @@ After a long time without post anything (I was really very busy with happy codin
 
 A CDN is a structured network to serve files in various storage servers. The main advantages to using it are:
 
+- To reduce request latency on get static files.
+
 - To control the user's storage quota;
 
 - To control the user's bandwidth quota;
@@ -33,7 +35,7 @@ In the first, you must think if you really need to use it. You should consider a
 
 - You must restrict those file's access with some particular business rule, for example when the user access expires.
 
-- You have a large number of files and need to allocate they on optimized storage servers instead your application's server one.
+-  You have a large number of files and need to allocate them on an optimized storage servers around the world instead your application's server one
 
 
 ### Cool, I need it! Let's do this!
