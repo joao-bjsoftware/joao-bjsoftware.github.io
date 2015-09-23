@@ -10,7 +10,7 @@ I have good news:
 
 *There a cacheable world outside and we can gain some speed improvement with it.* 
 
-With simple settings, you can do it with Django and NGINX Web server and minify static files, save bandwidth and reduce application network loading time;
+With simple setup and settings, you can do it with Django and NGINX Web server and minify static files, save bandwidth and reduce application network loading time;
 
 
 ### What is to minify?
