@@ -19,5 +19,6 @@ To minify static files is a process based on remove all unnecessary characters i
 
 There a lot of software to minify files but the minification process will let static files hard to read and maintain. We don't want it, so to had a better approach in this two worlds you must use Django-pipeline application with some of those compression software.
 
-In this article, I will talk only about Django-pipeline minification behavior with *YUI Compressor*.
+In this article, I will talk only about Django-pipeline minification behavior with *YUI Compressor*. It's my choice, but you can use you  preferred compressor software one ;)
+
 
