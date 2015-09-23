@@ -21,7 +21,15 @@ There a lot of software to minify files but the minification process will let st
 
 In this article, I will talk only about Django-pipeline minification behavior with *YUI Compressor*. It's my choice, but you can use you  preferred compressor software one ;)
 
-If you're using Debian just like me, you can install YUI compressor with following command:
+If you're using Debian just like me, you can install YUI compressor with the following command (with sudoers or root):
+
+
+```bash
+
+apt-get install yui-compressor
+
+
+```
 
 
 
