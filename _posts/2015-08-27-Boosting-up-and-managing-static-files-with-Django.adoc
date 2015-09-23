@@ -1,3 +1,5 @@
-= Boosting and managing static files with Django
+= Boosting up and managing static files with Django
+:keywords: stati files, python, django, João Carvalho, Maestrus, YUI Compressor, bit brushing
+:attribute "og:image": image::cdn.png[Boosting up statis files with Django]
 
-
+image::cdn.png[Creating a Custom CDN With Python and Django]
