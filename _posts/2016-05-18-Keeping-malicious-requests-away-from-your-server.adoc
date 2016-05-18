@@ -1,0 +1,32 @@
+= Keeping malicious requests away from your server
+:keywords: fail2ban, firewall, ufw, active firewall, linux, shh, ssh-ddos, badbots, apache, nginx
+"og:image": image::boosting-static.png[Boosting up statis files with Django]
+
+image::boosting-static.png[Boosting up and managing static files with Django]
+
+### Lights on fire!
+
+I have good news:
+
+*There a cacheable world outside and we can gain some speed improvement with it.* 
+
+With simple setup and settings, you can do it with Django and NGINX Web server and minify static files, save bandwidth and reduce application network loading time;
+
+
+### What is to minify?
+
+To minify static files is a process based on remove all unnecessary characters including trailing spaces, spaces between commands and source comments. By doing this, you will boost up your page load.
+
+There a lot of software to minify files but the minification process will let static files hard to read and maintain. We don't want it, so to had a better approach in this two worlds you must use Django-pipeline application with some of those compression software.
+
+In this article, I will talk only about Django-pipeline minification behavior with *YUI Compressor*. It's my choice, but you can use you  preferred compressor software one ;)
+
+If you're using Debian just like me, you can install YUI compressor with the following command (with sudo or root):
+
+
+```bash
+
+apt-get install yui-compressor
+
+
+```
